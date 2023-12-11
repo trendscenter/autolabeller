@@ -1,5 +1,11 @@
-% sorts FNC matrix
-% input: unsorted FNC matrix, corresponding IC# and functional domain label
+% This function modularizes an FNC matrix
+% Inputs: 
+%     fnc:     unsorted FNC matrix
+%     labels:  corresponding IC#, RSN/noise label and functional domain name. Example label input can be as shown:
+% 
+%         35,1,Visual
+%         16,1,Default
+%         36,1,Subcortical
 % 
 function [network_idx_reordered, reordered_matrix, order_] = sort_fnc( fnc, labels )
     % sorted domain labels
