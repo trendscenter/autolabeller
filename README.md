@@ -12,6 +12,8 @@ Autolabeller is written in Matlab™ and requires several Matlab toolboxes to ru
 - [SPM12](https://www.fil.ion.ucl.ac.uk/spm/software/spm12/)
 - [BCT Toolbox](https://sites.google.com/site/bctnet/) (March 2019 release)
 
+In case of errors during toolbox loading, double-check that the paths are correctly set using the addpath command and that no typos were made in the folder locations.
+
 ## Using the autolabeller
 
 Example code can be found in `src/example_label_ic.m`. To run autolabeller, you need to add the requirements to your path:
