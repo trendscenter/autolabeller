@@ -14,21 +14,22 @@ Autolabeller is written in Matlab™ and requires several Matlab toolboxes to ru
 
 ## Using the autolabeller
 
-Example code can be found in `src/example_label_ic.m`.
+Example code can be found in `src/example_label_ic.m`. To run autolabeller, you need to add the requirements to your path:
 
     % add requirements to path
-    addpath( genpath( '../bin/GroupICATv4.0b/' ) )      % GIFT toolbox
-    addpath( genpath( '../bin/CanlabCore' ) )       % Canlab toolbox
-    addpath( '../bin/spm12/' )      % SPM12 toolbox
-    addpath( '../bin/2019_03_03_BCT' )       % Brain connectivity toolbox
-    addpath( '../bin/autolabeller/' )       % add the autolabeller src folder only
+    addpath('/path/to/GIFTtoolbox')
+    addpath('/path/to/spm12/')
+    addpath('/path/to/2019_03_03_BCT') % Brain connectivity toolbox
+    addpath('../bin/autolabeller/') % add the autolabeller src folder only
+    
+The following code can be used to run using ica_parameter.mat as an input file, containing all the necessary parameters of your ICA analysis.
 
-    % GICA example with fbirn dataset
+    % group ICA example 
     clear params;
-    params.param_file = './fbirnp3_rest_ica_parameter_info.mat';
-    params.outpath = './results/fbirn/';
+    params.param_file = '/path/to/ica_parameter_info.mat'; %input file
+    params.outpath = '/results/path';
     params.fit_method = 'mnr';
-    params.n_corr = 3;
+    params.n_corr = 3; 
     params.skip_noise = 0;
     params.skip_anatomical = 0;
     params.skip_functional = 0;
@@ -36,14 +37,14 @@ Example code can be found in `src/example_label_ic.m`.
     params.anatomical_atlas = 'aal';
     params.threshold = 3;
     params.functional_atlas = 'yeo_buckner';
-    disp( 'Running the autolabeller on FBIRN dataset' )
+    disp( 'Running the autolabeller on the selected dataset' )
     label_auto_main( params );
 
     % Spatial map example with the Neuromark template
     clear params;
-    params.sm_path = './NetworkTemplate_High_VarNor.nii';
+    params.sm_path = '/path/to/SpatialMaps.nii';
     params.mask_path = './Mask.img';
-    params.outpath = './results/neuromark/';
+    params.outpath = '/path/to/results/';
     params.fit_method = 'mnr';
     params.n_corr = 3;
     params.skip_noise = 0;
@@ -53,7 +54,7 @@ Example code can be found in `src/example_label_ic.m`.
     params.anatomical_atlas = 'aal';
     params.threshold = 3;
     params.functional_atlas = 'yeo_buckner';
-    disp( 'Running the autolabeller on NeuroMark dataset' )
+    disp( 'Running the autolabeller on the selected dataset' )
     label_auto_main( params );
 
 ## Parameters & outputs
@@ -64,10 +65,10 @@ Example code can be found in `src/example_label_ic.m`.
 * `params.outpath` Output directory
 * `params.n_corr` How many ROI top correlations to calculate for anatomical/functional labeling. Default = 3
 * `params.threshold` Threshold value for the spatial maps. Default = 3
-* `params.skip_noise` If you do not want to run or already ran artifact detection step, set to 1. Otherwise set to 0 by default.
-* `params.skip_anatomical` If you do not want to run or already ran anatomical labeling step, set to 1. Otherwise set to 0 by default.
-* `params.skip_functional` If you do not want to run or already ran functional labeling step, set to 1. Otherwise set to 0 by default.
-* `params.noise_training_set` Which dataset to use to train the noisecloud model. Options: `pre_fbirn_sub`, `pre_aggregate`
+* `params.skip_noise` If you do not want to run or already performed artifact detection step, set to 1. Otherwise set to 0 by default.
+* `params.skip_anatomical` If you do not want to run or already performed anatomical labeling step, set to 1. Otherwise set to 0 by default.
+* `params.skip_functional` If you do not want to run or already performed functional labeling step, set to 1. Otherwise set to 0 by default.
+* `params.noise_training_set` Which dataset to use to train the noisecloud model. Options are:
     - `pre_fbirn_sub`: when both spatial maps and timecourses are available, as in a GIFT output
     - `pre_aggregate`: when only spatial maps are available
 * `params.anatomical_atlas` Which atlas to use for anatomical labeling. Options: `aal`
@@ -75,28 +76,28 @@ Example code can be found in `src/example_label_ic.m`.
 
 ### Outputs
 The following files are written into params.outpath folder:
-* `network_labels.csv` is a vector of 0/1 corresponding to the input spatial maps; 0=artifact, 1=network
-* `anatomical_labels.csv` has the following columns:
+* `network_labels.csv` is a vector of 0s or 1s corresponding to the input spatial maps; 0=artifact, 1=network
+* `anatomical_labels.csv` containing the following columns:
     * `volume` 1-N where N is the number of input spatial maps
-    * `network` a vector of 0/1 corresponding to the input spatial maps; 0=artifact, 1=network
+    * `network` a vector of 0s and 1s corresponding to the input spatial maps; 0=artifact, 1=network
     * `region_1`,`spatial_corr_1` AAL anatomical region with the highest spatial correlation to the spatial maps, and the correlation value
     * `region_2`,`spatial_corr_2`,`region_3`,`spatial_corr_3` AAL anatomical region with the second and third highest spatial correlations to the spatial maps, and the corresponding correlation values
-* `functional_labels_[atlas].csv` has the following columns:
+* `functional_labels_[atlas_name].csv` has the following columns:
     * `volume` 1-N where N is the number of input spatial maps
-    * `network` a vector of 0/1 corresponding to the input spatial maps; 0=artifact, 1=network
-    * `region_1`,`spatial_corr_1` Functional parcellation from [atlas] with highest spatial correlation to the spatial maps, and the correlation value. Current available atlas are Yeo/BucknerLab, Gordon (2016), and CAREN 
+    * `network` a vector of 0s and 1s corresponding to the input spatial maps; 0=artifact, 1=network
+    * `region_1`,`spatial_corr_1` Functional parcellation from [atlas] with highest spatial correlation to the spatial maps, and the correlation value. Current available atlases are Yeo/BucknerLab, Gordon (2016), and CAREN 
     * `region_2`,`spatial_corr_2`,`region_3`,`spatial_corr_3` Functional parcellations with the second and third highest correlations to the spatial maps, and the corresponding correlation values
 * `sorted_IC_idx_[atlas].csv` sorted index of the input spatial maps corresponding to the brain networks (artifact-related component indexes are removed)
 * `sorted_fnc_[atlas].csv` sorted functional network connectivity (FNC) matrix of the brain networks 
-* `nc` folder contains the noisecloud toolbox output. It has the following files:
+* `nc` folder contains the noisecloud toolbox output (run under GIFT toolbox). It has the following files:
     * `*.nii` template `nii` files warped into the same space as the input spatial maps.
-    * `nc_class_labels.txt` a vector of 0/1 corresponding to the input spatial maps; 0=artifact, 1=network
+    * `nc_class_labels.txt` a vector of 0s and 1s corresponding to the input spatial maps; 0=artifact, 1=network
     * `training/testing_features.csv` contains the training/testing input data features used by the noisecloud toolbox in classification.  
 
 ## Result
 
-The following figures are generated using the `./src/example_plot_fnc.m` script. 
-You can update the ICA parameter file and autolabeller output folder locations in the above to generate new figures.
+The following figures are generated using the `example_plot_fnc.m` script. 
+You can update the ICA parameter file and autolabeller output folder locations in the example codes above to generate new figures.
 The script uses ICA parameter file to load the FNC from the ICA post-process result.
 
 <img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_unsorted_yeo_buckner.png" alt="unsorted" width="150"/> <img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_reordered_yeo_buckner.png" alt="reordered" width="150"/> <img src="results/fbirn_nc_train_sub_th04/FBIRN_fnc_icn_yeo_buckner.png" alt="icn" width="150"/>
