@@ -6,15 +6,15 @@ tStart = tic;
 addpath( genpath( '/trdapps/linux-x86_64/matlab/toolboxes/GroupICATv4.0b/' ) )      % GIFT toolbox
 addpath( '../bin/my_icatb_plot_FNC.m' )
 
-outpath = '../results/fbirn_nc_train_sub_th04/';
-param_file = '/data/users2/salman/projects/fBIRN/current/data/ICAresults_C100_fbirn/fbirnp3_rest_ica_parameter_info.mat';
+outpath = './results';
+param_file = 'ica_parameter_info.mat';
 dataset_ = 'FBIRN';
 % functional_atlas = 'yeo_buckner';
 functional_atlas = 'gordon2016';
 % functional_atlas = 'caren';
 
-% outpath = '../results/cobre_nc_train_sub_th04/';
-% param_file = '/data/users2/salman/projects/COBRE/current/results/ica_results_old/cobre1_ica_parameter_info.mat';
+% outpath = './results';
+% param_file = 'ica_parameter_info.mat';
 % dataset_ = 'COBRE';
 % % functional_atlas = 'yeo_buckner';
 % % functional_atlas = 'gordon2016';
