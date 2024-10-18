@@ -62,19 +62,19 @@ The following code can be used to run using ica_parameter.mat as an input file, 
 ## Parameters & outputs
 
 ### Inputs
-* `params.param_file` Location of GICA parameter file
+* `params.param_file` Location of the GICA parameter file
 * `params.sm_path` Location of NIFTI data containing spatial maps. Use this if you are not running GICA.
 * `params.outpath` Output directory
-* `params.n_corr` How many ROI top correlations to calculate for anatomical/functional labeling. Default = 3
-* `params.threshold` Threshold value for the spatial maps. Default = 3
-* `params.skip_noise` If you do not want to run or already performed artifact detection step, set to 1. Otherwise set to 0 by default.
-* `params.skip_anatomical` If you do not want to run or already performed anatomical labeling step, set to 1. Otherwise set to 0 by default.
-* `params.skip_functional` If you do not want to run or already performed functional labeling step, set to 1. Otherwise set to 0 by default.
-* `params.noise_training_set` Which dataset to use to train the noisecloud model. Options are:
+* `params.n_corr` paramter defininf how many ROI top correlations to calculate for anatomical/functional labeling. Default is set to 3
+* `params.threshold` Threshold value for the spatial maps. Default is set to 3
+* `params.skip_noise` Set to 0 by default. If you do not want to run or already completed artifact detection step, set to 1. 
+* `params.skip_anatomical` Set to 0 by default. If you do not want to run or already completed anatomical labeling step, set to 1. 
+* `params.skip_functional` Set to 0 by default. If you do not want to run or already completed functional labeling step, set to 1. 
+* `params.noise_training_set` Choose dataset to use to train the noisecloud model. Options are:
     - `pre_fbirn_sub`: when both spatial maps and timecourses are available, as in a GIFT output
     - `pre_aggregate`: when only spatial maps are available
-* `params.anatomical_atlas` Which atlas to use for anatomical labeling. Options: `aal`
-* `params.functional_atlas` Which atlas to use for functional labeling. Options: `yeo_buckner`, `gordon2016`, `caren`. Default = `yeo_buckner`.
+* `params.anatomical_atlas` Choose which atlas to use for anatomical labelling. Options: `aal`
+* `params.functional_atlas` Choose which atlas to use for functional labelling. Options: `yeo_buckner`, `gordon2016`, `caren`. Default is `yeo_buckner`.
 
 ### Outputs
 The following files are written into params.outpath folder:
