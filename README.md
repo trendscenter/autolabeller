@@ -9,8 +9,6 @@ This tool can automatically classify noisy spatial maps of brain activity, and g
 Autolabeller is written in Matlab™ and requires several Matlab toolboxes to run. Please download the following toolboxes and add to your Matlab path.
 
 - [GIFT](https://github.com/trendscenter/gift)
-- [SPM12](https://www.fil.ion.ucl.ac.uk/spm/software/spm12/)
-- [BCT Toolbox](https://sites.google.com/site/bctnet/) (March 2019 release)
 
 In case of errors during toolbox loading, double-check that the paths are correctly set using the addpath command and that no typos were made in the folder locations.
 
@@ -20,9 +18,7 @@ Example code can be found in `src/example_label_ic.m`. To run autolabeller, you 
 
     % add requirements to path
     addpath('/path/to/GIFTtoolbox')
-    addpath('/path/to/spm12/')
-    addpath('/path/to/2019_03_03_BCT') % Brain connectivity toolbox
-    addpath('../bin/autolabeller/') % add the autolabeller src folder only
+    addpath('../bin/autolabeller/') % add the autolabeller folder
     
 The following code can be used to run using ica_parameter.mat as an input file, containing all the necessary parameters of your ICA analysis.
 
